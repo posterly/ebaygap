@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+        <!--
+  * Please see the included README.md file for license terms and conditions.
+  -->
+
+        <head>
+                <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+                <meta charset="UTF-8">
+                <title>Poster.ly for Ebay - Post to eBay the easy way!</title>
+                <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+                <meta name="description" content="Poster.ly for eBay">
+
+                <!--
+  * The "meta viewport" tag (below) helps your app size appropriately to a device's screen.
+  * Note that the meta viewport approach is being phased out in favor of the @viewport CSS rule.
+  * For a quick overview of both, see this article:
+  *   http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag
+  * To see what happens, try the app on a real device with and without a "meta viewport" tag.
+-->
+
+                <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+                <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+                <!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1, maximum-scale=2"> -->
+
+                <style>
+                        /* following three (cascaded) are equivalent to above three meta viewport statements */
+                            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html */
+                            /* see http://dev.w3.org/csswg/css-device-adapt/ */
+                                @-ms-viewport { width: 100vw ; zoom: 100% ; }                           @viewport { width: 100vw ; zoom: 100% ; }
+                                @-ms-viewport { user-zoom: fixed ; }                                    @viewport { user-zoom: fixed ; }
+                                /*@-ms-viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }   @viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }*/
+                </style>
+
+                <link rel="stylesheet" href="css/old-android.css">
+
+                <!-- IMPORTANT: Do not include your weinre script tag as part of your release builds! -->
+                <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work below -->
+                <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+
+                <!-- Most third-party libraries should go here. References (below) are just examples to give you the general idea... -->
+                <!-- <script src="lib/ft/fastclick.js"></script> -->
+
+                <script src="intelxdk.js"></script>
+                <!-- phantom library, needed for XDK "legacy" container api calls -->
+                <script src="cordova.js"></script>
+                <!-- phantom library, needed for Cordova api calls -->
+                <script src="xhr.js"></script>
+                <!-- phantom library, needed for XDK "legacy" container CORS -->
+
+                <script src="js/app.js"></script>
+                <script src="js/init-app.js"></script>
+                <script src="js/init-dev.js"></script>
+
+                <!-- Hello Grayscale -->
+
+                <link href="css/bootstrap.min.css" rel="stylesheet">
+
+                <!-- Custom CSS -->
+                <link href="css/grayscale.css" rel="stylesheet">
+
+                <!-- Custom Fonts -->
+                <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+                <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+                <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+                
+            <link rel="stylesheet" type="text/css" href="css/index_main.less.css" class="main-less">
+
+                <style>
+                        div.container div.input-group {
+                                margin-bottom: 10px;   
+                            }
+                        ul.photos-list {
+                            clear: both; 
+                            display: table-row;
+                            width: 100%;
+                            text-align: center;
+                        }
+                        
+                        ul.photos-list li {
+                            float: left;
+                            width: 23.2%;
+                            height: 85px;
+                            line-height: 1.4;
+                            text-align: center;
+                            background-color: #eee;
+                            padding: 10px;
+                            margin: 0 5px 5px 0;
+                            display: table-cell;
+                            text-align: center;
+                        }
+                  
+                        div.photobox {
+                          height: 120px;
+                          margin: 5px;
+                          text-align: center;
+                          display: none;
+                          background-color: #eee;
+                          line-height: 1.4em;
+                          width: 120px;
+                          vertical-align: middle;
+                          position: relative;
+                        }
+                    
+                        div.photobox_container {
+                            display: none;   
+                        }
+                  
+                        div.photo {
+                          height: 101px;
+                          width: 100%;
+                        }
+                  
+                        div.photobox span.glyphicon {
+                          margin-top: -7px;
+                          margin-left: -7px;
+                          top: 50%;
+                          left: 50%;
+                          position: absolute;
+                        }
+                        
+                        div.existing {
+                          width: 100%;
+                          left: 0px;
+                          bottom: 0px;
+                          position: absolute;
+                          background: #bbb;
+                        }
+                        
+                        div.remove {
+                          position: absolute;
+                          right: 5px;
+                          top: 5px;
+                          width: 16px;
+                          height: 16px;
+                          line-height: 16px;
+                          text-align: center;
+                          font-size: 14px;
+                          background-color: red;
+                          border-color: white;
+                          border-width: 1px;
+                          display: block;
+                          vertical-align: middle;
+                        }
+                    
+                        button#posterly_submit_button {
+                         width: 100%;   
+                        }
+                    
+                        span.glyphicon-loading {
+                            background: url(img/ajax-loader.gif) #eee no-repeat;
+                            background-position: 8px 8px;
+                        }   
+                    
+                        div.posterly_floater div.posterly_floater_left {
+                            float: left;
+                            width: 49%;
+                        }
+                       
+                </style>
+
+                <script type="application/javascript" src="js/jquery.min.js"></script>
+                <script type="application/javascript" src="marginal/marginal-position.min.js"></script>
+                <script type="application/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+            
+            
+                <!-- jQuery Version 1.11.0 -->
+                <script src="js/jquery-1.11.0.js"></script>
+
+                
+            
+                <script>
+                  
+                    $(document).ready(function() {
+                        
+                    $('.navbar-toggle').click(function(e) {
+                        $('.navbar-main-collapse').toggle('slow'); 
+                    });
+                        
+                      var numBoxes = 1;
+                        $('#posterly_name').bind('blur focus',
+                                              function (e) {
+                         
+                           // do the api call to search for a category
+                            $('#posterly_category_container').show();
+                            $('#posterly_category_container input[type="text"]')
+                                .attr("placeholder", "Searching...");
+                            $('#posterly_category_container span').removeClass('glyphicon-tag');
+                             $('#posterly_category_container span').addClass('glyphicon-loading');            
+                        });
+                      
+                      $("#addPhoto").bind("click", function (e) {
+                          
+                          $('div.photobox_container').show();
+                        if (numBoxes >= 1 && numBoxes <= 4) {
+                          document.getElementById("box"+numBoxes).style.display = "inline-block";
+                          numBoxes++;
+                        }
+                          
+                                                navigator.camera.getPicture(onSuccess, onFail, { 
+            quality: 50,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            targetWidth: 100,
+            targetHeight: 100,
+            encodingType: Camera.EncodingType.JPEG
+            });
+                          //http://epilepsyapp.wordpress.com/2012/04/25/348/
+
+            function onSuccess(imageURI) {
+                var image = document.getElementById('img' + (numBoxes-1));
+                image.src = imageURI;
+            }
+
+            function onFail(message) {
+                setTimeout(function () {
+                    alert('Failed because: ' + message);
+                },0);
+            }
+
+                          
+                          
+                        
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.returnValue = false;
+                        return false;
+                      });
+                    });
+                    
+                </script>
+        </head>
+
+        <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+                <!-- IMPORTANT: Do not include your weinre script tag as part of your release builds! -->
+                <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work above -->
+                <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+
+                <!-- Grayscale start -->
+
+            
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle">
+                    <i style='color: #fff;' class="glyphicon glyphicon-th-list"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <i class="glyphicon glyphicon-camera"></i>  <span class="light">Posterly</span> eBay
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <!--
+                        <h1 class="brand-heading">
+                            Poster.ly for Ebay
+                        </h1>
+                        <p class="intro-text">
+                            Post to eBay the easy way!
+                        </p>
+                        -->
+                        
+                        
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">eBay</span>
+                              <input type="text" class="form-control" placeholder="Username">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">eBay</span>
+                              <input type="password" class="form-control" placeholder="Password">
+                            </div>
+                        </div>
+                        
+                        
+                        <nav class="navbar navbar-inverse" role="navigation" style='background:#222; padding: 0;'>
+                              <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header">
+                                  
+                                  <a id="addPhoto" class="navbar-brand" href="#">
+                                      
+                                      <span class='glyphicon glyphicon-facetime-video'></span>
+                                      
+                                      Add a Photo
+                                 
+                                    </a>
+                                </div>
+                          </div>
+                            </nav>
+                        
+                      <!-- Photo Grid Start -->
+                      <div class="row photobox_container">
+                          <div class="col-xs-6 col-md-6 photobox_container">
+                            <div id="box1" class="photobox">
+                              <div class="photo" style='overflow: hidden;'>
+                                <span class="glyphicon glyphicon-camera"></span>
+                                  <img id="img1" width='100%' height='100%'></img>
+                              </div>
+                              <div class="existing">Existing</div>
+                              <div class="remove">X</div>
+                            </div>
+                          </div>
+                          <div class="col-xs-6 col-md-6">
+                            <div id="box2" class="photobox">
+                              <div class="photo">
+                                <span class="glyphicon glyphicon-camera"></span>
+                                  <img id="img2" width='100%' height='100%'></img>
+                              </div>
+                              <div class="existing">Existing</div>
+                              <div class="remove">X</div>
+                            </div>
+                          </div>
+                      </div><br />
+                      <div class="row">
+                          <div class="col-xs-6 col-md-6">
+                            <div id="box3" class="photobox">
+                              <div class="photo">
+                                <span class="glyphicon glyphicon-camera"></span>
+                                  <img id="img3" width='100%' height='100%'></img>
+                              </div>
+                              <div class="existing">Existing</div>
+                              <div class="remove">X</div>
+                            </div>
+                          </div>
+                          <div class="col-xs-6 col-md-6">
+                            <div id="box4" class="photobox">
+                              <div class="photo">
+                                <span class="glyphicon glyphicon-camera"></span>
+                                  <img id="img4" width='100%' height='100%'></img>
+                              </div>
+                              <div class="existing">Existing</div>
+                              <div class="remove">X</div>
+                            </div>
+                          </div>
+                      </div>
+                      <!-- Photo Grid End -->
+                        
+                      <button id='posterly_submit_button' class='btn btn-gray' style="">
+                            Post to eBay
+                        </button>
+                        
+                        <div style='clear:both;'></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>About Poster.ly</h2>
+                <p>Poster.ly is an incredible platform for posting to your favorite internet hotspots including eBay, Craigslist and Facebook.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Contact Poster.ly</h2>
+                <p>Feel free to email us at any time!</p>
+                <p><a href="mailto:posterly@outlook.com">posterly@outlook.com</a>
+                </p>
+                <ul class="list-inline banner-social-buttons">
+                    
+                    <li>
+                        <a href="https://github.com/posterly/ebay" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; Poster.ly</p>
+        </div>
+    </footer>
+
+
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js">                          </script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/grayscale.js"></script>
+
+
+                <!-- Grayscale end -->
+
+        </body>
+
+</html>
