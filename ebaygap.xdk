@@ -2,13 +2,14 @@
   "project": {
     "projectSettingsVersion": "1.1",
     "creationData": {
-      "type": "Import",
+      "type": "App Designer",
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
-      "src": "",
+      "src": "appDesigner",
       "projectGuid": "5a3aa54b-a2cd-43f1-b2f5-fd566646d7a5",
       "lastModifiedDate": 1415042725680,
       "creationDate": 1415042725625
     },
+	"XDK-app-designer": "true",
     "sourceDirectory": "www",
     "cordovaPluginsDirectory": "plugins",
     "startFile": "index.html",
