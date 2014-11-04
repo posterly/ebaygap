@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "appDesigner",
       "projectGuid": "5a3aa54b-a2cd-43f1-b2f5-fd566646d7a5",
-      "lastModifiedDate": 1415042725680,
+      "lastModifiedDate": 1415131669558,
       "creationDate": 1415042725625
     },
 	"XDK-app-designer": "true",
@@ -43,6 +43,13 @@
         "id": "org.apache.cordova.splashscreen",
         "version": "0.2.5",
         "selectedState": "Auto",
+        "data": {},
+        "paramvals": {}
+      },
+      {
+        "id": "org.apache.cordova.camera",
+        "version": "0.2.9",
+        "selectedState": "Included",
         "data": {},
         "paramvals": {}
       }

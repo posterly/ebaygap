@@ -202,16 +202,30 @@
                     type: "POST",
                     dataType: "xml",
                     data: "<?xml version=\"1.0\" encoding=\"utf-8\"?><GetSessionIDRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\"><RuName>Posterly__Inc.-Posterly-a71d-4-rycukda</RuName></GetSessionIDRequest>",
+                    contentType: "text/xml; charset=\"utf-8\"",
                     headers: {
                         "X-EBAY-API-APP-NAME": "Posterly-a71d-43f4-89d6-e50289ed9863",
                         "X-EBAY-API-DEV-NAME": "eb07858b-3646-4f52-8fd8-b2797211ffb0",
-                        "X-EBAY-API-CERT-NAME": "8ababfb8-d6cb-4ae3-8b7a-e66e1e61a0a2"
+                        "X-EBAY-API-CERT-NAME": "8ababfb8-d6cb-4ae3-8b7a-e66e1e61a0a2",
+                        "X-EBAY-API-SITEID": "0",
+                        "X-EBAY-API-CALL-NAME": "GetSessionID",
+                        "X-EBAY-API-COMPATIBILITY-LEVEL": "915"
                     },
                     error: function (code) {
                         alert("error: " + code);
                     },
                     success: function (data) {
-                        alert(data);
+                        console.log(data);
+                        var sessid = data.documentElement.getElementsByTagName("SessionID")[0];
+                        console.log(id.firstChild.data);
+                        /*
+                            Need to display an iframe to the user using the following url:
+                            https://signin.sandbox.ebay.com/ws/eBayISAPI.dll?SignIn&RuName=Posterly__Inc.-Posterly-a71d-4-rycukda&SessID=YourSessionIDHere
+                        
+                            Make sure the session id is url encoded using the encodeURIComponent function.
+                            The test user name is TESTUSER_poster.ly
+                            The password is Phonegap45!
+                        */
                     }
                 });
             },
@@ -404,7 +418,7 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
 
-                        <form method='post' onsubmit='EbayForm.bind_submit(); return false;'>
+                        <form method='post' onsubmit='EbayForm.bind_getsessionid(); return false;'>
 
                             <!--
                         <h1 class="brand-heading">
